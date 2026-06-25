@@ -13,3 +13,4 @@ crash.log
 kubeconfig
 *.kubeconfig
 .DS_Store
+/terraform/*-config
