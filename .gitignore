@@ -1,0 +1,15 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+# Keep the lock file committed (reproducible provider versions)
+# Go
+/app/bin/
+*.out
+
+# Kube / local
+kubeconfig
+*.kubeconfig
+.DS_Store
