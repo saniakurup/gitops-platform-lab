@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: go-api
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  port: 80
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 32Mi
+  limits:
+    cpu: 100m
+    memory: 64Mi
+
+# Enabled in Phase 5, once the Prometheus CRDs exist
+serviceMonitor:
+  enabled: false
