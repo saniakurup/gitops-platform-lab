@@ -16,6 +16,6 @@ resources:
     cpu: 100m
     memory: 64Mi
 
-# Enabled in Phase 5, once the Prometheus CRDs exist
+# Enabled in Phase 5, now that the Prometheus CRDs exist
 serviceMonitor:
-  enabled: false
+  enabled: true
