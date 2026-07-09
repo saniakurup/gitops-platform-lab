@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 87.12.1
+    helm:
+      values: |
+        # Slim it down for a local single-node cluster
+        alertmanager:
+          enabled: false
+        grafana:
+          adminPassword: admin
+        prometheus:
+          prometheusSpec:
+            # Scrape ServiceMonitors from ALL namespaces, not just this release's
+            serviceMonitorSelectorNilUsesHelmValues: false
+            retention: 6h
+            resources:
+              requests:
+                memory: 256Mi
+              limits:
+                memory: 700Mi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true  # kube-prometheus-stack CRDs are too big for client-side apply
